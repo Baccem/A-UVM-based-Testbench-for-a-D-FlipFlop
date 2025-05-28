@@ -1,7 +1,3 @@
-# A-UVM-based-Testbench-for-a-D-FlipFlop
-This is a test bench environment using open source UVM framework to test and verify the functionality of a D Flip Flop
-<!-- README.html for A-UVM-based-Testbench-for-a-D-FlipFlop -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +21,7 @@ This is a test bench environment using open source UVM framework to test and ver
     <li><a href="#overview">Overview</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#directory-structure">Directory Structure</a></li>
-    <li><a href="#getting-started">Getting Started</a></li>
     <li><a href="#running-the-testbench">Running the Testbench</a></li>
-    <li><a href="#extensions">Extensions</a></li>
   </ul>
 
   <h2 id="overview">Overview</h2>
@@ -47,100 +41,59 @@ This is a test bench environment using open source UVM framework to test and ver
   <dl>
     <dt><strong>config_dff</strong></dt>
     <dd>UVM object carrying agent configuration (active/passive mode).</dd>
+    <dt><strong>  </strong></dt>
+    <dd>  </dd>
+        <dt><strong> Transaction </strong></dt>
+    <dd> Encapsulates the inputs and outputs of the DUT </dd>
+        <dt><strong> Sequences:valid_din, rst_dff and rand_din_rst rand_ </strong></dt>
+    <dd> They are used to make the testing scenarios </dd>
+        <dt><strong> Driver </strong></dt>
+    <dd> Drives data to DUT via virtual Interface </dd>
+        <dt><strong> Monitor </strong></dt>
+    <dd> Samples data from DUT via virtual interface </dd>
+            <dt><strong> Scoreboard </strong></dt>
+    <dd> Compares output to golden model  </dd>
+        <dt><strong> Agent </strong></dt>
+    <dd> Encapsulates Driver, Monitor and Sequencer </dd>
+    <dd> Connects scroeboard with monitor </dd>
+        <dt><strong> Env </strong></dt>
+    <dd> Encapsulates Agent, Scoreboard and config </dd>
+        <dt><strong> Test </strong></dt>
+    <dd> Enacpsulates Env and Sequneces and start the sequence </dd>
+    
 
-    <dt><strong>transaction</strong></dt>
-    <dd>Sequence item encapsulating <code>rst</code>, <code>din</code>, and <code>dout</code> signals.</dd>
-
-    <dt><strong>Sequences</strong></dt>
-    <dd>
-      <ul>
-        <li><code>valid_din</code>: Drives only valid data cycles (rst=0).</li>
-        <li><code>rst_dff</code>: Issues reset pulses (rst=1).</li>
-        <li><code>rand_din_rst</code>: Randomizes both <code>din</code> and <code>rst</code>.</li>
-      </ul>
-    </dd>
-
-    <dt><strong>driver</strong></dt>
-    <dd>Implements <code>run_phase</code> to drive <code>rst</code> and <code>din</code> on the interface.</dd>
-
-    <dt><strong>monitor</strong></dt>
-    <dd>
-      Samples DUT output (<code>dout</code>) on clock edges and writes transactions to the scoreboard.
-    </dd>
-
-    <dt><strong>scoreboard</strong></dt>
-    <dd>
-      Receives transactions via an <code>uvm_analysis_imp</code>, compares <code>dout</code> vs. <code>din</code>,
-      and reports pass/fail or reset events.
-    </dd>
-
-    <dt><strong>agent & environment</strong></dt>
-    <dd>
-      Assembles the driver, monitor, sequencer, and scoreboard. Connects analysis ports for scoreboard updates.
-    </dd>
-
-    <dt><strong>test</strong></dt>
-    <dd>Creates environment, starts various sequences in series, and controls test duration via UVM objections.</dd>
   </dl>
 
   <h2 id="directory-structure">Directory Structure</h2>
   <pre>
-  ├── tb
-  │   ├── tb.sv
-  │   ├── dff_if.sv
-  │   ├── dff.sv                &lt;-- DUT
-  │   └── waves.vcd
-  ├── pkg
-  │   ├── config.sv
-  │   ├── transaction.sv
-  │   ├── valid_din.sv
-  │   ├── rst_dff.sv
-  │   ├── rand_din_rst.sv
-  │   ├── driver.sv
-  │   ├── monitor.sv
-  │   ├── scoreboard.sv
-  │   ├── agent.sv
-  │   ├── env.sv
-  │   └── test.sv
-  └── README.html
+ ├
+ ├── tb.sv
+ ├── dff_if.sv
+ ├── dff.sv               
+ └── waves.vcd
+ ├── mypkg.sv
+ ├── config.sv
+ ├── transaction.sv
+ ├── valid_din.sv
+ ├── rst_dff.sv
+ ├── rand_din_rst.sv
+ ├── driver.sv
+ ├── monitor.sv
+ ├── scoreboard.sv
+ ├── agent.sv
+ ├── env.sv
+ └── test.sv
   </pre>
 
-  <h2 id="getting-started">Getting Started</h2>
-  <ol>
-    <li>Install a SystemVerilog simulator with UVM support (e.g. Questa, VCS, Xcelium).</li>
-    <li>Clone this repo:
-      <pre><code>git clone https://github.com/your‑org/A‑UVM‑based‑Testbench‑for‑a‑D‑FlipFlop.git</code></pre>
-    </li>
-    <li>Compile the DUT and UVM packages:
-      <pre><code>
-vlib work
-vlog +acc +incdir+./pkg \
-    ./tb/dff_if.sv \
-    ./tb/dff.sv \
-    ./pkg/config.sv \
-    ./pkg/transaction.sv \
-    ... (all .sv files) ...
-      </code></pre>
-    </li>
-  </ol>
+
 
   <h2 id="running-the-testbench">Running the Testbench</h2>
-  <p>Invoke your simulator with UVM switches:</p>
+  <p>The code was run using EDA Playground with synopsys VCS 2023</p>
   <pre><code>
-vsim work.tb \
-  -sv_lib $UVM_HOME/lib/uvm.sv \
-  +UVM_NO_DUPLICATE_REPORTS=1 \
-  +UVM_VERBOSITY=UVM_LOW \
-  -gui
+    https://edaplayground.com/x/JSbY
   </code></pre>
   <p>The waves will be dumped to <code>waves.vcd</code>, and you’ll see UVM logs for each transaction and scoreboard check.</p>
 
-  <h2 id="extensions">Extensions</h2>
-  <ul>
-    <li>Add a <strong>reference model</strong> in <code>scoreboard</code> for functional coverage.</li>
-    <li>Implement a <strong>coverage collector</strong> for <code>din</code> toggling patterns.</li>
-    <li>Scale to an <strong>N‑bit register file</strong> by parameterizing the interface and transactions.</li>
-  </ul>
 
 </body>
 </html>
