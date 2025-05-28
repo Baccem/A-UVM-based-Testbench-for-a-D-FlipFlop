@@ -2,14 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>A‑UVM‑based‑Testbench‑for‑a‑D‑FlipFlop</title>
-  <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 2em; }
-    h1, h2 { color: #2c3e50; }
-    pre { background: #f4f4f4; padding: 1em; overflow-x: auto; }
-    code { font-family: Consolas, monospace; color: #c7254e; background: #f9f2f4; padding: 2px 4px; }
-    .badge { display: inline-block; margin-right: 0.5em; }
-  </style>
+ 
 </head>
 <body>
 
